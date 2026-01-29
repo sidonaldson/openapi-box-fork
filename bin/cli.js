@@ -15,7 +15,7 @@ const cli = meow(`
     --header, -h Send headers to the request in case <input> is remote
     --cjs Generate a commonjs file
     --remove-prefix -r Remove prefix string from every endpoint
-    --head-template Path to a local header-template file
+    --head-template Path to a local head-template file
 
   Examples
     $ openapi-box ./openapi.json
