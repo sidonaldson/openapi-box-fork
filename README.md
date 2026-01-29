@@ -29,7 +29,7 @@ The `openapi-box` CLI supports the following flags:
 | --header            | -h    | string[] |                | Send headers to the request (for remote input).                             |
 | --cjs               |       | boolean  | false          | Generate a CommonJS file                                                    |
 | --remove-prefix     | -r    | string   |                | Remove prefix string from every endpoint                                    |
-| --head-template     | -ht   | string   |                | Path to a local head-template file                                          |
+| --head-template     | -ht   | string   |                | Path to a local file to override the [head-template](https://github.com/geut/openapi-box/blob/ed1258d928c90f35239bcdecb5cac180e8ccca85/src/head-template.js)                       |
 
 #### Examples
 
