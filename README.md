@@ -26,10 +26,10 @@ The `openapi-box` CLI supports the following flags:
 | Flag                | Short | Type     | Default        | Description                                                                 |
 |---------------------|-------|----------|----------------|-----------------------------------------------------------------------------|
 | --output            | -o    | string   | schema.js      | Output filename                                                             |
-| --header            | -h    | string[] |                | Send headers to the request (for remote input). Use multiple times if needed. Format: key=value |
+| --header            | -h    | string[] |                | Send headers to the request (for remote input).                             |
 | --cjs               |       | boolean  | false          | Generate a CommonJS file                                                    |
 | --remove-prefix     | -r    | string   |                | Remove prefix string from every endpoint                                    |
-| --head-template     |       | string   |                | Path to a local head-template file to use instead of the built-in one     |
+| --head-template     | -ht   | string   |                | Path to a local head-template file                                          |
 
 #### Examples
 
@@ -43,9 +43,9 @@ Generate from a remote URL with a header:
 $ openapi-box https://api.com/doc.json -h 'Authorization=Bearer secrettoken'
 ```
 
-Use a custom header template:
+Use a custom head template:
 ```bash
-$ openapi-box ./openapi.json --head-template ./my-header-template.js
+$ openapi-box ./openapi.json --head-template ./head-template.js
 ```
 
 1. Generate the schema from an OpenApi url (it can a be filepath too):
