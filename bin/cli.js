@@ -21,7 +21,7 @@ const cli = meow(`
     $ openapi-box ./openapi.json
     $ openapi-box https://api.com/doc.json
     $ openapi-box https://api.com/doc.json -h 'Authorization=Bearer secrettoken'
-    $ openapi-box ./openapi.json --header-template ./my-header-template.js
+    $ openapi-box ./openapi.json --head-template ./my-header-template.js
 `, {
   importMeta: import.meta,
   allowUnknownFlags: false,
