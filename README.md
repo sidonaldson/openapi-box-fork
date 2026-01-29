@@ -19,6 +19,35 @@ $ npm install @geut/openapi-box @sinclair/typebox
 
 ## Usage
 
+### CLI Flags
+
+The `openapi-box` CLI supports the following flags:
+
+| Flag                | Short | Type     | Default        | Description                                                                 |
+|---------------------|-------|----------|----------------|-----------------------------------------------------------------------------|
+| --output            | -o    | string   | schema.js      | Output filename                                                             |
+| --header            | -h    | string[] |                | Send headers to the request (for remote input). Use multiple times if needed. Format: key=value |
+| --cjs               |       | boolean  | false          | Generate a CommonJS file                                                    |
+| --remove-prefix     | -r    | string   |                | Remove prefix string from every endpoint                                    |
+| --head-template     |       | string   |                | Path to a local header-template file to use instead of the built-in one     |
+
+#### Examples
+
+Generate from a local file:
+```bash
+$ openapi-box ./openapi.json
+```
+
+Generate from a remote URL with a header:
+```bash
+$ openapi-box https://api.com/doc.json -h 'Authorization=Bearer secrettoken'
+```
+
+Use a custom header template:
+```bash
+$ openapi-box ./openapi.json --head-template ./my-header-template.js
+```
+
 1. Generate the schema from an OpenApi url (it can a be filepath too):
 ```bash
 $ openapi-box https://petstore3.swagger.io/api/v3/openapi.json

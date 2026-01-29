@@ -1,12 +1,14 @@
 /** @typedef {import('@apidevtools/json-schema-ref-parser').JSONSchema} JSONSchema */
 
+import { pathToFileURL } from 'node:url'
+
 import SwaggerParser from '@apidevtools/json-schema-ref-parser'
 import CodeBlockWriter from 'code-block-writer'
 import pascalcase from 'pascalcase'
 import * as prettier from 'prettier'
 
 import { cleanupSchema, extractSchemaOptions, kRef } from './cleanup.js'
-import headTemplate from './head-template.js'
+import defaultHeadTemplate from './head-template.js'
 import resolver from './resolver.js'
 
 const scalarTypes = {
@@ -32,6 +34,7 @@ const createCodeBlockWriter = () => new CodeBlockWriter({
  *  cjs?: boolean
  *  headers?: object
  *  removePrefix?: string
+ *  headTemplate?: string
  * }} [opts]
  * @returns {Promise<string>}
  */
@@ -47,7 +50,18 @@ export const write = async (source, opts = {}) => {
   const requestSchemas = []
   let w = createCodeBlockWriter()
 
-  w.writeLine(headTemplate(cjs))
+  let headTemplateFn = defaultHeadTemplate
+  if (opts.headTemplate) {
+    const headTemplateModule = await import(pathToFileURL(opts.headTemplate).href)
+    if (typeof headTemplateModule.default === 'function') {
+      headTemplateFn = headTemplateModule.default
+    } else {
+      throw new TypeError('The head-template module must export a default function')
+    }
+  }
+
+  w.writeLine(headTemplateFn(cjs))
+
   w.blankLineIfLastNot()
 
   /** @type {Map<string, string>} */

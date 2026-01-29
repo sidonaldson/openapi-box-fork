@@ -15,11 +15,13 @@ const cli = meow(`
     --header, -h Send headers to the request in case <input> is remote
     --cjs Generate a commonjs file
     --remove-prefix -r Remove prefix string from every endpoint
+    --head-template Path to a local header-template file
 
   Examples
     $ openapi-box ./openapi.json
     $ openapi-box https://api.com/doc.json
     $ openapi-box https://api.com/doc.json -h 'Authorization=Bearer secrettoken'
+    $ openapi-box ./openapi.json --header-template ./my-header-template.js
 `, {
   importMeta: import.meta,
   allowUnknownFlags: false,
@@ -42,6 +44,10 @@ const cli = meow(`
     removePrefix: {
       type: 'string',
       shortFlag: 'r',
+    },
+    headTemplate: {
+      type: 'string',
+      shortFlag: 'ht',
     },
   },
 })
@@ -72,6 +78,7 @@ try {
     cjs: cli.flags.cjs,
     headers,
     removePrefix: cli.flags.removePrefix,
+    headTemplate: cli.flags.headTemplate,
   })
 } catch (err) {
   spinner.fail(err.message)
